@@ -105,7 +105,7 @@ export default function ProjectsSection() {
                   {project.tags.map((tag) => (
                     <span 
                       key={tag}
-                      className="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm flex items-center"
+                      className="px-3 py-1 bg-opacity-10 rounded-full text-sm flex items-center text-[#2a2c37]"
                     >
                       <i className={`${getTagIcon(tag)} mr-1`}></i>
                       {tag}
