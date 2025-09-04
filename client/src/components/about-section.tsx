@@ -1,10 +1,10 @@
 export default function AboutSection() {
   const skills = [
-    { icon: "fab fa-cuttlefish", name: "C++" },
-    { icon: "fab fa-react", name: "React" },
-    { icon: "fab fa-python", name: "Python" },
-    { icon: "fab fa-unity", name: "UE5" },
-    { icon: "fab fa-aws", name: "AWS" }
+    { icon: "fas fa-code", name: "C++", bgColor: "bg-blue-500" },
+    { icon: "fab fa-react", name: "React", bgColor: "bg-cyan-500" },
+    { icon: "fab fa-python", name: "Python", bgColor: "bg-green-500" },
+    { icon: "fas fa-gamepad", name: "UE5", bgColor: "bg-purple-500" },
+    { icon: "fab fa-aws", name: "AWS", bgColor: "bg-orange-500" }
   ];
 
   return (
@@ -59,11 +59,11 @@ export default function AboutSection() {
         {/* Skills Section */}
         <div className="mt-20" data-aos="fade-up">
           <h3 className="text-3xl font-bold text-center mb-12">Technical Expertise</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-8 max-w-6xl mx-auto">
             {skills.map((skill, index) => (
-              <div key={skill.name} className="text-center">
-                <div className="w-20 h-20 bg-primary bg-opacity-10 border border-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <i className={`${skill.icon} text-primary text-3xl`}></i>
+              <div key={skill.name} className="text-center flex-shrink-0">
+                <div className={`w-20 h-20 ${skill.bgColor} bg-opacity-20 border border-primary rounded-2xl flex items-center justify-center mx-auto mb-4 hover:bg-opacity-30 transition-all duration-300`}>
+                  <i className={`${skill.icon} text-white text-3xl`}></i>
                 </div>
                 <h4 className="font-semibold">{skill.name}</h4>
               </div>
