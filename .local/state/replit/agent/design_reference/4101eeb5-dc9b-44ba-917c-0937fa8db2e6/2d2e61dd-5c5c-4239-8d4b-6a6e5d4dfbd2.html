@@ -1,0 +1,970 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kevin Rodriguez - Software Engineer Portfolio</title>
+  <meta name="description" content="Software Engineer, Graphics Enthusiast, and Open-Source Contributor showcasing innovative projects and technical expertise.">
+  
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          borderRadius: {
+            lg: "var(--radius)",
+            md: "calc(var(--radius) - 2px)",
+            sm: "calc(var(--radius) - 4px)",
+          },
+          colors: {
+            background: "var(--background)",
+            foreground: "var(--foreground)",
+            card: {
+              DEFAULT: "var(--card)",
+              foreground: "var(--card-foreground)",
+            },
+            primary: {
+              DEFAULT: "var(--primary)",
+              foreground: "var(--primary-foreground)",
+            },
+            secondary: {
+              DEFAULT: "var(--secondary)",
+              foreground: "var(--secondary-foreground)",
+            },
+            muted: {
+              DEFAULT: "var(--muted)",
+              foreground: "var(--muted-foreground)",
+            },
+            accent: {
+              DEFAULT: "var(--accent)",
+              foreground: "var(--accent-foreground)",
+            },
+            border: "var(--border)",
+            ring: "var(--ring)",
+          },
+          fontFamily: {
+            sans: ['Inter', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif']
+          },
+          animation: {
+            'bubble-expand': 'bubbleExpand 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+            'bubble-contract': 'bubbleContract 0.3s ease-in-out',
+            'float': 'float 6s ease-in-out infinite',
+            'fade-in-up': 'fadeInUp 0.6s ease-out',
+            'slide-in-right': 'slideInRight 0.5s ease-out',
+          },
+          keyframes: {
+            bubbleExpand: {
+              '0%': { transform: 'scale(1)', borderRadius: '50%' },
+              '50%': { transform: 'scale(1.1)', borderRadius: '30%' },
+              '100%': { transform: 'scale(1)', borderRadius: '20px' }
+            },
+            bubbleContract: {
+              '0%': { transform: 'scale(1)', borderRadius: '20px' },
+              '100%': { transform: 'scale(1)', borderRadius: '50%' }
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-20px)' }
+            },
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            slideInRight: {
+              '0%': { opacity: '0', transform: 'translateX(30px)' },
+              '100%': { opacity: '1', transform: 'translateX(0)' }
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root {
+      --background: hsl(210 8% 14%);
+      --foreground: hsl(0 0% 98%);
+      --card: hsl(210 8% 16%);
+      --card-foreground: hsl(0 0% 98%);
+      --primary: hsl(36 23% 75%);
+      --primary-foreground: hsl(210 8% 16%);
+      --secondary: hsl(210 8% 25%);
+      --secondary-foreground: hsl(0 0% 98%);
+      --muted: hsl(210 8% 25%);
+      --muted-foreground: hsl(0 0% 70%);
+      --accent: hsl(36 23% 75%);
+      --accent-foreground: hsl(210 8% 16%);
+      --border: hsl(210 8% 25%);
+      --ring: hsl(36 23% 75%);
+      --radius: 12px;
+    }
+
+    * {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .bubble-menu {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .bubble-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .bubble-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .bubble-btn.scrolled {
+      background: var(--background);
+      border: 2px solid var(--primary);
+    }
+
+    .bubble-menu.expanded {
+      background: var(--background);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border);
+    }
+
+    .bubble-menu.expanded .bubble-btn {
+      background: transparent;
+      border: 2px solid var(--primary);
+    }
+
+    .menu-items {
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .bubble-menu.expanded .menu-items {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+
+    .menu-item {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: var(--foreground);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      margin: 0.25rem 0;
+      white-space: nowrap;
+    }
+
+    .menu-item:hover {
+      background: var(--primary);
+      color: var(--primary-foreground);
+      transform: translateX(5px);
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, var(--background) 0%, var(--secondary) 100%);
+    }
+
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .typing-animation {
+      overflow: hidden;
+      border-right: 2px solid var(--primary);
+      white-space: nowrap;
+      animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: var(--primary) }
+    }
+
+    .section-divider {
+      background: linear-gradient(90deg, transparent 0%, var(--primary) 50%, transparent 100%);
+      height: 1px;
+      margin: 4rem 0;
+    }
+
+    .parallax-bg {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--background);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+  </style>
+</head>
+
+<body class="bg-background text-foreground antialiased">
+  
+  <!-- @COMPONENT: BubbleNavigation -->
+  <!-- Dynamic floating bubble navigation that expands on click -->
+  <div id="bubbleMenu" class="bubble-menu">
+    <button id="bubbleBtn" class="bubble-btn" aria-label="Toggle navigation menu">
+      <i id="bubbleIcon" class="fas fa-bars text-primary-foreground text-xl"></i>
+    </button>
+    <nav class="menu-items mt-4">
+      <a href="#hero" class="menu-item" data-section="hero">
+        <i class="fas fa-home mr-2"></i>Home
+      </a>
+      <a href="#about" class="menu-item" data-section="about">
+        <i class="fas fa-user mr-2"></i>About
+      </a>
+      <a href="#projects" class="menu-item" data-section="projects">
+        <i class="fas fa-code mr-2"></i>Projects
+      </a>
+      <a href="#contact" class="menu-item" data-section="contact">
+        <i class="fas fa-envelope mr-2"></i>Contact
+      </a>
+    </nav>
+  </div>
+  <!-- @END_COMPONENT: BubbleNavigation -->
+
+  <!-- @COMPONENT: HeroSection -->
+  <section id="hero" class="min-h-screen hero-gradient flex items-center justify-center relative overflow-hidden">
+    <!-- Animated background elements -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-primary rounded-full animate-float"></div>
+      <div class="absolute top-3/4 right-1/4 w-24 h-24 bg-primary rounded-full animate-float" style="animation-delay: -2s;"></div>
+      <div class="absolute bottom-1/4 left-3/4 w-20 h-20 bg-primary rounded-full animate-float" style="animation-delay: -4s;"></div>
+    </div>
+    
+    <div class="relative text-center px-6 max-w-4xl mx-auto" data-aos="fade-up">
+      <!-- Professional profile image with floating animation -->
+      <!-- A professional headshot of a software engineer with a warm, approachable expression -->
+      <div class="relative inline-block mb-8">
+        <img
+          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400"
+          alt="Kevin Rodriguez - Software Engineer"
+          class="w-40 h-40 rounded-full mx-auto object-cover border-4 border-primary shadow-2xl animate-float"
+          data-mock="true"
+        />
+        <div class="absolute -bottom-2 -right-2 w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+          <i class="fas fa-code text-primary-foreground text-lg"></i>
+        </div>
+      </div>
+
+      <h1 class="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+        Kevin Rodriguez
+      </h1>
+      
+      <div class="text-2xl md:text-3xl text-muted-foreground mb-8 typing-animation max-w-2xl mx-auto">
+        Software Engineer • Graphics Enthusiast • Open-Source Contributor
+      </div>
+      
+      <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up" data-aos-delay="200">
+        <span class="px-4 py-2 bg-card border border-border rounded-full text-sm font-medium">
+          <i class="fab fa-react mr-2"></i>React Developer
+        </span>
+        <span class="px-4 py-2 bg-card border border-border rounded-full text-sm font-medium">
+          <i class="fas fa-gamepad mr-2"></i>Game Development
+        </span>
+        <span class="px-4 py-2 bg-card border border-border rounded-full text-sm font-medium">
+          <i class="fab fa-aws mr-2"></i>Cloud Architecture
+        </span>
+        <span class="px-4 py-2 bg-card border border-border rounded-full text-sm font-medium">
+          <i class="fab fa-github mr-2"></i>Open Source
+        </span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
+        <a href="#projects" class="inline-flex items-center px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 hover:transform hover:scale-105">
+          <i class="fas fa-rocket mr-2"></i>
+          View My Work
+        </a>
+        <a href="#contact" class="inline-flex items-center px-8 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-primary-foreground transition-all duration-300">
+          <i class="fas fa-paper-plane mr-2"></i>
+          Let's Connect
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <i class="fas fa-chevron-down text-primary text-2xl"></i>
+    </div>
+  </section>
+  <!-- @END_COMPONENT: HeroSection -->
+
+  <div class="section-divider"></div>
+
+  <!-- @COMPONENT: AboutSection -->
+  <section id="about" class="py-20 bg-card relative">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">About Me</h2>
+        <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
+          Passionate about creating innovative solutions that bridge technology and user experience
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <!-- Welcome Card -->
+        <div class="bg-background border border-border p-8 rounded-2xl card-hover" data-aos="fade-up" data-aos-delay="100">
+          <div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mb-6">
+            <i class="fas fa-heart text-primary-foreground text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4 text-foreground">Welcome</h3>
+          <p class="text-muted-foreground leading-relaxed">
+            Welcome to my digital portfolio. Here you'll discover highlights of my work, technical expertise, 
+            and the passion that drives me as a developer. Each project represents a journey of learning and innovation.
+          </p>
+        </div>
+
+        <!-- Projects Card -->
+        <div class="bg-background border border-border p-8 rounded-2xl card-hover" data-aos="fade-up" data-aos-delay="200">
+          <div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mb-6">
+            <i class="fas fa-code-branch text-primary-foreground text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4 text-foreground">My Projects</h3>
+          <p class="text-muted-foreground leading-relaxed">
+            This section showcases my project highlights and interactive demonstrations. 
+            These projects span independent work, collaborative efforts, and coursework from my academic journey, 
+            each solving real-world problems.
+          </p>
+        </div>
+
+        <!-- Contact Card -->
+        <div class="bg-background border border-border p-8 rounded-2xl card-hover" data-aos="fade-up" data-aos-delay="300">
+          <div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mb-6">
+            <i class="fas fa-comments text-primary-foreground text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4 text-foreground">Let's Connect</h3>
+          <p class="text-muted-foreground leading-relaxed">
+            Ready to collaborate or discuss opportunities? The contact section provides multiple ways to reach me, 
+            including a direct communication interface for seamless networking and project discussions.
+          </p>
+        </div>
+      </div>
+
+      <!-- Skills Section -->
+      <div class="mt-20" data-aos="fade-up">
+        <h3 class="text-3xl font-bold text-center mb-12">Technical Expertise</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+          <div class="text-center">
+            <div class="w-20 h-20 bg-primary bg-opacity-10 border border-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <i class="fab fa-js-square text-primary text-3xl"></i>
+            </div>
+            <h4 class="font-semibold">JavaScript/TypeScript</h4>
+          </div>
+          <div class="text-center">
+            <div class="w-20 h-20 bg-primary bg-opacity-10 border border-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <i class="fab fa-react text-primary text-3xl"></i>
+            </div>
+            <h4 class="font-semibold">React/Next.js</h4>
+          </div>
+          <div class="text-center">
+            <div class="w-20 h-20 bg-primary bg-opacity-10 border border-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <i class="fab fa-unity text-primary text-3xl"></i>
+            </div>
+            <h4 class="font-semibold">Game Development</h4>
+          </div>
+          <div class="text-center">
+            <div class="w-20 h-20 bg-primary bg-opacity-10 border border-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <i class="fab fa-aws text-primary text-3xl"></i>
+            </div>
+            <h4 class="font-semibold">Cloud Services</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- @END_COMPONENT: AboutSection -->
+
+  <div class="section-divider"></div>
+
+  <!-- @COMPONENT: ProjectsSection -->
+  <section id="projects" class="py-20 bg-background">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">Featured Projects</h2>
+        <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
+          A curated selection of my work showcasing technical innovation and creative problem-solving
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+        <!-- Portfolio Website Project -->
+        <div class="bg-card border border-border rounded-2xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="100">
+          <!-- Modern web development workspace with multiple monitors showing code -->
+          <div class="h-48 bg-gradient-to-br from-primary to-secondary relative overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400"
+              alt="Web development workspace with code on screen"
+              class="w-full h-full object-cover mix-blend-overlay"
+              data-mock="true"
+            />
+            <div class="absolute top-4 right-4 bg-background bg-opacity-80 backdrop-blur-sm px-3 py-1 rounded-full text-sm">
+              <i class="fas fa-globe mr-1"></i>Live
+            </div>
+          </div>
+          <div class="p-8">
+            <h3 class="text-2xl font-bold mb-3">Portfolio Website</h3>
+            <p class="text-muted-foreground mb-6 leading-relaxed">
+              A fully responsive, performance-optimized portfolio built with modern web technologies. 
+              Features AWS S3 & CloudFront hosting with automated CI/CD pipeline achieving 95+ Lighthouse scores.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm">React</span>
+              <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm">AWS</span>
+              <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm">CI/CD</span>
+              <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm">Performance</span>
+            </div>
+            <div class="flex gap-4">
+              <a href="https://github.com/KevinTTO5/Website-Dev" target="_blank" class="inline-flex items-center text-primary hover:text-accent transition-colors">
+                <i class="fab fa-github mr-2"></i>View Code
+              </a>
+              <a href="#" class="inline-flex items-center text-primary hover:text-accent transition-colors">
+                <i class="fas fa-external-link-alt mr-2"></i>Live Demo
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Burnt Out Game Project -->
+        <div class="bg-card border border-border rounded-2xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="200">
+          <!-- Dark atmospheric game environment with dramatic lighting -->
+          <div class="h-48 bg-gradient-to-br from-red-900 to-gray-900 relative overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400"
+              alt="Dark atmospheric gaming environment"
+              class="w-full h-full object-cover mix-blend-overlay"
+              data-mock="true"
+            />
+            <div class="absolute top-4 right-4 bg-background bg-opacity-80 backdrop-blur-sm px-3 py-1 rounded-full text-sm">
+              <i class="fas fa-gamepad mr-1"></i>Game
+            </div>
+          </div>
+          <div class="p-8">
+            <h3 class="text-2xl font-bold mb-3">Burnt Out (UE5 Horror Game)</h3>
+            <p class="text-muted-foreground mb-6 leading-relaxed">
+              A psychological horror game exploring work-life exhaustion through Unreal Engine 5. 
+              Features advanced AI systems, behavior trees, and immersive storytelling mechanics.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm">Unreal Engine 5</span>
+              <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm">AI Systems</span>
+              <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm">Game Design</span>
+              <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm">Team Project</span>
+            </div>
+            <div class="flex gap-4">
+              <a href="https://github.com/KevinTTO5/Burnt-Out/tree/newprojectapproach" target="_blank" class="inline-flex items-center text-primary hover:text-accent transition-colors">
+                <i class="fab fa-github mr-2"></i>View Code
+              </a>
+              <a href="#contact" class="inline-flex items-center text-primary hover:text-accent transition-colors">
+                <i class="fas fa-play mr-2"></i>Request Demo
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student Schedule Builder -->
+        <div class="bg-card border border-border rounded-2xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="300">
+          <!-- Organized workspace with calendar and scheduling tools -->
+          <div class="h-48 bg-gradient-to-br from-blue-900 to-purple-900 relative overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400"
+              alt="Digital calendar and scheduling interface"
+              class="w-full h-full object-cover mix-blend-overlay"
+              data-mock="true"
+            />
+            <div class="absolute top-4 right-4 bg-background bg-opacity-80 backdrop-blur-sm px-3 py-1 rounded-full text-sm">
+              <i class="fas fa-calendar mr-1"></i>Automation
+            </div>
+          </div>
+          <div class="p-8">
+            <h3 class="text-2xl font-bold mb-3">Student Schedule Builder</h3>
+            <p class="text-muted-foreground mb-6 leading-relaxed">
+              Automated scheduling system for educational centers using Google Apps Script. 
+              Streamlines student-instructor assignment process with calendar integration and optimization algorithms.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm">Google Apps Script</span>
+              <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm">Automation</span>
+              <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm">Calendar API</span>
+              <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm">Optimization</span>
+            </div>
+            <div class="flex gap-4">
+              <a href="https://github.com/KevinTTO5/KevinTTO5.github.io/blob/main/Schedule%20Builder%20AppScripts" target="_blank" class="inline-flex items-center text-primary hover:text-accent transition-colors">
+                <i class="fab fa-github mr-2"></i>View Code
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Campus Network Planner -->
+        <div class="bg-card border border-border rounded-2xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="400">
+          <!-- Network visualization with connected nodes and data flow -->
+          <div class="h-48 bg-gradient-to-br from-green-900 to-teal-900 relative overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400"
+              alt="Network topology visualization with connected nodes"
+              class="w-full h-full object-cover mix-blend-overlay"
+              data-mock="true"
+            />
+            <div class="absolute top-4 right-4 bg-background bg-opacity-80 backdrop-blur-sm px-3 py-1 rounded-full text-sm">
+              <i class="fas fa-network-wired mr-1"></i>Algorithm
+            </div>
+          </div>
+          <div class="p-8">
+            <h3 class="text-2xl font-bold mb-3">Campus Network Planner</h3>
+            <p class="text-muted-foreground mb-6 leading-relaxed">
+              Graph algorithm implementation using Kruskal's Algorithm to optimize campus network connections. 
+              Demonstrates minimum spanning tree concepts for cost-effective infrastructure planning.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm">Java</span>
+              <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm">Graph Algorithms</span>
+              <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm">Optimization</span>
+              <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm">Data Structures</span>
+            </div>
+            <div class="flex gap-4">
+              <a href="https://github.com/KevinTTO5/KevinTTO5.github.io/blob/main/CampusNetworkPlanner.java" target="_blank" class="inline-flex items-center text-primary hover:text-accent transition-colors">
+                <i class="fab fa-github mr-2"></i>View Code
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- View All Projects Button -->
+      <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="500">
+        <a href="https://github.com/KevinTTO5" target="_blank" class="inline-flex items-center px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 hover:transform hover:scale-105">
+          <i class="fab fa-github mr-2"></i>
+          View All Projects on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- @END_COMPONENT: ProjectsSection -->
+
+  <div class="section-divider"></div>
+
+  <!-- @COMPONENT: ContactSection -->
+  <section id="contact" class="py-20 bg-card">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">Let's Connect</h2>
+        <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
+          Ready to collaborate, discuss opportunities, or just say hello? I'd love to hear from you.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <!-- Contact Form -->
+        <div class="bg-background border border-border rounded-2xl p-8" data-aos="fade-up" data-aos-delay="100">
+          <h3 class="text-2xl font-bold mb-6">Send a Message</h3>
+          <form class="space-y-6" data-implementation="Connect to email service or contact API">
+            <div>
+              <label for="name" class="block text-sm font-medium mb-2">Full Name</label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                class="w-full px-4 py-3 bg-card border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                placeholder="Your full name"
+                data-mock="true"
+              />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium mb-2">Email Address</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                class="w-full px-4 py-3 bg-card border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                placeholder="your.email@example.com"
+                data-mock="true"
+              />
+            </div>
+            <div>
+              <label for="subject" class="block text-sm font-medium mb-2">Subject</label>
+              <input 
+                type="text" 
+                id="subject" 
+                name="subject" 
+                class="w-full px-4 py-3 bg-card border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                placeholder="What's this about?"
+                data-mock="true"
+              />
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium mb-2">Message</label>
+              <textarea 
+                id="message" 
+                name="message" 
+                rows="5"
+                class="w-full px-4 py-3 bg-card border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all resize-none"
+                placeholder="Tell me about your project or opportunity..."
+                data-mock="true"
+              ></textarea>
+            </div>
+            <button 
+              type="submit" 
+              class="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 hover:transform hover:scale-105"
+              data-event="submit:handleContactForm"
+            >
+              <i class="fas fa-paper-plane mr-2"></i>
+              Send Message
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="space-y-8" data-aos="fade-up" data-aos-delay="200">
+          <div class="bg-background border border-border rounded-2xl p-6">
+            <h3 class="text-xl font-bold mb-4">Quick Connect</h3>
+            <div class="space-y-4">
+              <a 
+                href="mailto:kevinarodriguez255@gmail.com" 
+                class="flex items-center p-4 bg-card border border-border rounded-lg hover:border-primary transition-all duration-300 group"
+              >
+                <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-primary group-hover:bg-opacity-20">
+                  <i class="fas fa-envelope text-primary text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold">Email</h4>
+                  <p class="text-muted-foreground">kevinarodriguez255@gmail.com</p>
+                </div>
+              </a>
+
+              <a 
+                href="https://www.linkedin.com/in/kevin-rodriguez-098943191/" 
+                target="_blank"
+                class="flex items-center p-4 bg-card border border-border rounded-lg hover:border-primary transition-all duration-300 group"
+              >
+                <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-primary group-hover:bg-opacity-20">
+                  <i class="fab fa-linkedin text-primary text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold">LinkedIn</h4>
+                  <p class="text-muted-foreground">Professional Network</p>
+                </div>
+              </a>
+
+              <a 
+                href="https://github.com/KevinTTO5" 
+                target="_blank"
+                class="flex items-center p-4 bg-card border border-border rounded-lg hover:border-primary transition-all duration-300 group"
+              >
+                <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-primary group-hover:bg-opacity-20">
+                  <i class="fab fa-github text-primary text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold">GitHub</h4>
+                  <p class="text-muted-foreground">Code Repository</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Availability Status -->
+          <div class="bg-background border border-border rounded-2xl p-6">
+            <h3 class="text-xl font-bold mb-4">Current Status</h3>
+            <div class="flex items-center mb-4">
+              <div class="w-3 h-3 bg-green-500 rounded-full mr-3 animate-pulse"></div>
+              <span class="text-green-400 font-semibold">Available for opportunities</span>
+            </div>
+            <p class="text-muted-foreground mb-4">
+              Currently seeking new challenges in software engineering, particularly in web development, 
+              game development, and cloud technologies.
+            </p>
+            <div class="text-sm text-muted-foreground">
+              <p>📍 Based in [Your Location]</p>
+              <p>🕒 Response time: Usually within 24 hours</p>
+              <p>💼 Open to: Full-time, Contract, Consulting</p>
+            </div>
+          </div>
+
+          <!-- Social Links -->
+          <div class="bg-background border border-border rounded-2xl p-6">
+            <h3 class="text-xl font-bold mb-4">Follow My Journey</h3>
+            <div class="flex space-x-4">
+              <a href="https://github.com/KevinTTO5" target="_blank" class="w-12 h-12 bg-card border border-border rounded-lg flex items-center justify-center hover:border-primary hover:bg-primary hover:bg-opacity-10 transition-all">
+                <i class="fab fa-github text-xl"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/kevin-rodriguez-098943191/" target="_blank" class="w-12 h-12 bg-card border border-border rounded-lg flex items-center justify-center hover:border-primary hover:bg-primary hover:bg-opacity-10 transition-all">
+                <i class="fab fa-linkedin text-xl"></i>
+              </a>
+              <a href="#" target="_blank" class="w-12 h-12 bg-card border border-border rounded-lg flex items-center justify-center hover:border-primary hover:bg-primary hover:bg-opacity-10 transition-all">
+                <i class="fab fa-twitter text-xl"></i>
+              </a>
+              <a href="#" target="_blank" class="w-12 h-12 bg-card border border-border rounded-lg flex items-center justify-center hover:border-primary hover:bg-primary hover:bg-opacity-10 transition-all">
+                <i class="fab fa-dev text-xl"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- @END_COMPONENT: ContactSection -->
+
+  <!-- @COMPONENT: Footer -->
+  <footer class="bg-background border-t border-border py-12">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Kevin Rodriguez</h3>
+          <p class="text-muted-foreground mb-4">
+            Software Engineer passionate about creating innovative solutions that make a difference.
+          </p>
+          <div class="flex space-x-4">
+            <a href="https://github.com/KevinTTO5" target="_blank" class="text-muted-foreground hover:text-primary transition-colors">
+              <i class="fab fa-github text-xl"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/kevin-rodriguez-098943191/" target="_blank" class="text-muted-foreground hover:text-primary transition-colors">
+              <i class="fab fa-linkedin text-xl"></i>
+            </a>
+            <a href="mailto:kevinarodriguez255@gmail.com" class="text-muted-foreground hover:text-primary transition-colors">
+              <i class="fas fa-envelope text-xl"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2 text-muted-foreground">
+            <li><a href="#hero" class="hover:text-primary transition-colors">Home</a></li>
+            <li><a href="#about" class="hover:text-primary transition-colors">About</a></li>
+            <li><a href="#projects" class="hover:text-primary transition-colors">Projects</a></li>
+            <li><a href="#contact" class="hover:text-primary transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold mb-4">Technologies</h4>
+          <ul class="space-y-2 text-muted-foreground">
+            <li>React & Next.js</li>
+            <li>Node.js & TypeScript</li>
+            <li>Cloud Technologies</li>
+            <li>Game Development</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-border pt-8 text-center text-muted-foreground">
+        <p>&copy; 2025 Kevin Rodriguez. All rights reserved. Built with passion and modern web technologies.</p>
+      </div>
+    </div>
+  </footer>
+  <!-- @END_COMPONENT: Footer -->
+
+  <!-- AOS Animation Library -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <script>
+    (function() {
+      // Initialize AOS animations
+      AOS.init({ 
+        once: true, 
+        duration: 800,
+        easing: 'ease-out-cubic'
+      });
+
+      // Bubble Navigation System
+      const bubbleMenu = document.getElementById('bubbleMenu');
+      const bubbleBtn = document.getElementById('bubbleBtn');
+      const bubbleIcon = document.getElementById('bubbleIcon');
+      let isExpanded = false;
+      let hasScrolled = false;
+
+      // Toggle bubble menu
+      function toggleBubbleMenu() {
+        isExpanded = !isExpanded;
+        
+        if (isExpanded) {
+          bubbleMenu.classList.add('expanded');
+          bubbleIcon.className = 'fas fa-times text-primary text-xl';
+          bubbleBtn.style.animation = 'bubbleExpand 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        } else {
+          bubbleMenu.classList.remove('expanded');
+          bubbleIcon.className = 'fas fa-bars text-primary-foreground text-xl';
+          bubbleBtn.style.animation = 'bubbleContract 0.3s ease-in-out';
+        }
+      }
+
+      // Handle bubble button click
+      bubbleBtn.addEventListener('click', toggleBubbleMenu);
+
+      // Handle menu item clicks
+      document.querySelectorAll('.menu-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+          const targetId = item.getAttribute('href');
+          if (targetId.startsWith('#')) {
+            e.preventDefault();
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              targetElement.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+            // Close menu after navigation
+            if (isExpanded) {
+              toggleBubbleMenu();
+            }
+          }
+        });
+      });
+
+      // Handle scroll events for bubble styling
+      function handleScroll() {
+        const scrollY = window.scrollY;
+        const heroHeight = document.getElementById('hero').offsetHeight;
+        
+        if (scrollY > heroHeight * 0.3 && !hasScrolled) {
+          hasScrolled = true;
+          bubbleBtn.classList.add('scrolled');
+          bubbleIcon.className = hasScrolled ? 'fas fa-bars text-primary text-xl' : 'fas fa-bars text-primary-foreground text-xl';
+        } else if (scrollY <= heroHeight * 0.3 && hasScrolled) {
+          hasScrolled = false;
+          bubbleBtn.classList.remove('scrolled');
+          bubbleIcon.className = 'fas fa-bars text-primary-foreground text-xl';
+        }
+      }
+
+      // Throttle scroll events for better performance
+      let scrollTimeout;
+      window.addEventListener('scroll', () => {
+        if (scrollTimeout) {
+          clearTimeout(scrollTimeout);
+        }
+        scrollTimeout = setTimeout(handleScroll, 10);
+      });
+
+      // Close bubble menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (isExpanded && !bubbleMenu.contains(e.target)) {
+          toggleBubbleMenu();
+        }
+      });
+
+      // Handle contact form submission
+      // TODO: Implement actual form submission logic with email service
+      const contactForm = document.querySelector('form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          // TODO: Add form validation and submission logic
+          console.log('Form submission prevented - implement actual submission logic');
+          
+          // Show success message (mock)
+          const submitBtn = contactForm.querySelector('button[type="submit"]');
+          const originalText = submitBtn.innerHTML;
+          submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Message Sent!';
+          submitBtn.disabled = true;
+          
+          setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            contactForm.reset();
+          }, 3000);
+        });
+      }
+
+      // Enhanced smooth scrolling for all anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          
+          if (targetElement) {
+            const offsetTop = targetElement.offsetTop - 80; // Account for any fixed headers
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // Add loading state management
+      window.addEventListener('load', () => {
+        document.body.classList.add('loaded');
+        // TODO: Implement any additional loading state cleanup
+      });
+
+      // Performance optimization: Lazy load images
+      if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              if (img.dataset.src) {
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                observer.unobserve(img);
+              }
+            }
+          });
+        });
+
+        document.querySelectorAll('img[data-src]').forEach(img => {
+          imageObserver.observe(img);
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>
