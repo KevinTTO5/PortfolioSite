@@ -172,7 +172,7 @@ export default function ContactSection() {
                     data-testid={`link-${method.title.toLowerCase()}`}
                   >
                     <div className="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-primary group-hover:bg-opacity-20">
-                      <i className={`${method.icon} text-primary text-xl`}></i>
+                      <i className={`${method.icon} text-secondary text-xl`}></i>
                     </div>
                     <div>
                       <h4 className="font-semibold">{method.title}</h4>
