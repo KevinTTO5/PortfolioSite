@@ -30,7 +30,7 @@ export default function Footer() {
   return (
     <footer className="bg-background border-t border-border py-12">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           <div>
             <h3 className="text-xl font-bold mb-4">Kevin Rodriguez</h3>
             <p className="text-muted-foreground mb-4">
@@ -66,15 +66,6 @@ export default function Footer() {
                     {link.name}
                   </a>
                 </li>
-              ))}
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-semibold mb-4">Technologies</h4>
-            <ul className="space-y-2 text-muted-foreground">
-              {footerLinks.technologies.map((tech) => (
-                <li key={tech}>{tech}</li>
               ))}
             </ul>
           </div>
