@@ -26,7 +26,7 @@ export default function ProjectsSection() {
       description: "A fully responsive, performance-optimized portfolio built with modern web technologies. Features AWS S3 & CloudFront hosting with automated CI/CD pipeline achieving 95+ Lighthouse scores.",
       image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
       tags: ["React", "AWS", "CI/CD", "Performance"],
-      githubUrl: "https://github.com/KevinTTO5/Website-Dev",
+      githubUrl: "https://github.com/KevinTTO5/PortfolioSite",
       liveUrl: "#",
       badge: { icon: "fas fa-globe", text: "Live" },
       gradientFrom: "from-primary",
