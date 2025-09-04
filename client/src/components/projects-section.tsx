@@ -1,4 +1,25 @@
 export default function ProjectsSection() {
+  const getTagIcon = (tag: string) => {
+    const iconMap: { [key: string]: string } = {
+      'React': 'fab fa-react',
+      'AWS': 'fab fa-aws',
+      'CI/CD': 'fas fa-sync-alt',
+      'Performance': 'fas fa-tachometer-alt',
+      'Unreal Engine 5': 'fab fa-unity',
+      'AI Systems': 'fas fa-brain',
+      'Game Design': 'fas fa-gamepad',
+      'Team Project': 'fas fa-users',
+      'Google Apps Script': 'fab fa-google',
+      'Automation': 'fas fa-robot',
+      'Calendar API': 'fas fa-calendar',
+      'Optimization': 'fas fa-chart-line',
+      'Java': 'fab fa-java',
+      'Graph Algorithms': 'fas fa-project-diagram',
+      'Data Structures': 'fas fa-database'
+    };
+    return iconMap[tag] || 'fas fa-tag';
+  };
+
   const projects = [
     {
       title: "Portfolio Website",
@@ -84,8 +105,9 @@ export default function ProjectsSection() {
                   {project.tags.map((tag) => (
                     <span 
                       key={tag}
-                      className="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm"
+                      className="px-3 py-1 bg-primary bg-opacity-10 text-primary rounded-full text-sm flex items-center"
                     >
+                      <i className={`${getTagIcon(tag)} mr-1`}></i>
                       {tag}
                     </span>
                   ))}
