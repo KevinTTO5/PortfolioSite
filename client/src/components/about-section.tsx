@@ -1,9 +1,10 @@
 export default function AboutSection() {
   const skills = [
-    { icon: "fab fa-js-square", name: "JavaScript/TypeScript" },
-    { icon: "fab fa-react", name: "React/Next.js" },
-    { icon: "fab fa-unity", name: "Game Development" },
-    { icon: "fab fa-aws", name: "Cloud Services" }
+    { icon: "fab fa-cuttlefish", name: "C++" },
+    { icon: "fab fa-react", name: "React" },
+    { icon: "fab fa-python", name: "Python" },
+    { icon: "fab fa-unity", name: "UE5" },
+    { icon: "fab fa-aws", name: "AWS" }
   ];
 
   return (
