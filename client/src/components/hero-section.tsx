@@ -16,7 +16,6 @@ export default function HeroSection() {
           style={{ animationDelay: '-4s' }}
         ></div>
       </div>
-      
       <div className="relative text-center px-6 max-w-4xl mx-auto" data-aos="fade-up">
         {/* Professional profile image with floating animation */}
         <div className="relative inline-block mb-8">
@@ -35,9 +34,7 @@ export default function HeroSection() {
           Kevin Rodriguez
         </h1>
         
-        <div className="text-2xl md:text-3xl text-muted-foreground mb-8 typing-animation max-w-2xl mx-auto">
-          Software Engineer • Graphics Enthusiast • Open-Source Contributor
-        </div>
+        <div className="text-2xl md:text-3xl text-muted-foreground mb-8 typing-animation max-w-2xl mx-auto">Software Engineer • Graphics Enthusiast</div>
         
         <div className="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up" data-aos-delay="200">
           <span className="px-4 py-2 bg-card border border-border rounded-full text-sm font-medium">
@@ -81,7 +78,6 @@ export default function HeroSection() {
           </a>
         </div>
       </div>
-
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <i className="fas fa-chevron-down text-primary text-2xl"></i>
