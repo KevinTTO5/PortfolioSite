@@ -105,7 +105,7 @@ export default function ProjectsSection() {
                   {project.tags.map((tag) => (
                     <span 
                       key={tag}
-                      className="px-3 py-1 bg-secondary text-foreground border border-border rounded-full text-sm flex items-center hover:bg-primary hover:text-primary-foreground transition-all duration-200"
+                      className="px-3 py-1 bg-primary bg-opacity-10 text-secondary border border-border rounded-full text-sm flex items-center hover:bg-primary hover:text-primary-foreground transition-all duration-200"
                     >
                       <i className={`${getTagIcon(tag)} mr-1`}></i>
                       {tag}
