@@ -54,12 +54,12 @@ export default function ProjectsSection() {
       gradientTo: "to-purple-900"
     },
     {
-      title: "Campus Network Planner",
-      description: "Graph algorithm implementation using Kruskal's Algorithm to optimize campus network connections. Demonstrates minimum spanning tree concepts for cost-effective infrastructure planning.",
+      title: "Apple Calendar Populating Script",
+      description: "My workplace never provided direct implementations of placing my shifts from their website to my apple calendar, so I developed a python script that would login into the site for me, scrape the contents of the schedule and populate my desired apple calendar.",
       image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      tags: ["Java", "Graph Algorithms", "Optimization", "Data Structures"],
-      githubUrl: "https://github.com/KevinTTO5/KevinTTO5.github.io/blob/main/CampusNetworkPlanner.java",
-      badge: { icon: "fas fa-network-wired", text: "Algorithm" },
+      tags: ["Javascript", "AppleCal", "Optimization", "Selenium"],
+      githubUrl: "https://github.com/KevinTTO5/KevinTTO5.github.io/blob/main/schedule_to_calendar.py",
+      badge: { icon: "fas fa-network-wired", text: "Automation" },
       gradientFrom: "from-green-900",
       gradientTo: "to-teal-900"
     }
