@@ -34,10 +34,10 @@ export default function ProjectsSection() {
     },
     {
       title: "Burnt Out (UE5 Horror Game)",
-      description: "A psychological horror game exploring work-life exhaustion through Unreal Engine 5. Features advanced AI systems, behavior trees, and immersive storytelling mechanics.",
+      description: "A psychological horror game exploring work-life exhaustion through Unreal Engine 5. Features advanced AI systems, behavior trees, and immersive storytelling mechanics. (Link goes to downloadable zip with .exe)",
       image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
       tags: ["Unreal Engine 5", "AI Systems", "Game Design", "Team Project"],
-      githubUrl: "https://github.com/KevinTTO5/Burnt-Out/tree/newprojectapproach",
+      githubUrl: "https://drive.google.com/file/d/1l_ncYswWHcSyKinCwPuLZgPnxyy3KuGB/view?usp=sharing",
       liveUrl: "#contact",
       badge: { icon: "fas fa-gamepad", text: "Game" },
       gradientFrom: "from-red-900",
