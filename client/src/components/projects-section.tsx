@@ -47,7 +47,7 @@ export default function ProjectsSection() {
       title: "Cyclops - KnightHacks VIII",
       description: "Cyclops is an AI-powered awareness system that mounts a rear-facing camera onto a backpack to monitor the user’s blind spot. If the system deems a person suspicious, it alerts the user’s phone via push notification, providing real-time situational awareness.",
       image: "https://images.unsplash.com/photo-1644088379091-d574269d422f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=400",
-      tags: ["YOLOv11, DeepSORT, Python, Arduino, FireBase, Google Gemini, Android-Studio"],
+      tags: ["YOLOv11", "DeepSORT", "Python", "Arduino", "FireBase", "Google Gemini", "Android-Studio"],
       githubUrl: "https://devpost.com/software/cyclops-xgf2qb?ref_content=user-portfolio&ref_feature=in_progress",
       badge: { icon: "fas fa-brain", text: "Computer Vision" },
       gradientFrom: "from-blue-900",
