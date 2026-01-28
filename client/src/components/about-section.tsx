@@ -1,10 +1,12 @@
 export default function AboutSection() {
   const skills = [
-    { icon: "fas fa-code", name: "C++", bgColor: "bg-blue-500" },
     { icon: "fab fa-react", name: "React", bgColor: "bg-cyan-500" },
     { icon: "fab fa-python", name: "Python", bgColor: "bg-green-500" },
-    { icon: "fas fa-gamepad", name: "UE5", bgColor: "bg-purple-500" },
-    { icon: "fab fa-aws", name: "AWS", bgColor: "bg-orange-500" }
+    { icon: "fab fa-js", name: "TypeScript", bgColor: "bg-blue-500" },
+    { icon: "fab fa-aws", name: "AWS", bgColor: "bg-orange-500" },
+    { icon: "fas fa-leaf", name: "MongoDB", bgColor: "bg-green-600" },
+    { icon: "fab fa-node-js", name: "Express.js", bgColor: "bg-green-700" },
+    { icon: "fas fa-code", name: "C++", bgColor: "bg-purple-500" }
   ];
 
   return (

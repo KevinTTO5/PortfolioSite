@@ -15,22 +15,26 @@ export default function ProjectsSection() {
       'Optimization': 'fas fa-chart-line',
       'Java': 'fab fa-java',
       'Graph Algorithms': 'fas fa-project-diagram',
-      'Data Structures': 'fas fa-database'
+      'Data Structures': 'fas fa-database',
+      'MERN Stack': 'fas fa-layer-group',
+      'MongoDB': 'fas fa-leaf',
+      'REST API': 'fas fa-exchange-alt',
+      'Machine Learning': 'fas fa-brain'
     };
     return iconMap[tag] || 'fas fa-tag';
   };
 
   const projects = [
     {
-      title: "Portfolio Website",
-      description: "A fully responsive, performance-optimized portfolio built with modern web technologies. Features AWS S3 & CloudFront hosting with automated CI/CD pipeline achieving 95+ Lighthouse scores.",
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      tags: ["React", "AWS", "CI/CD", "Performance"],
-      githubUrl: "https://github.com/KevinTTO5/PortfolioSite",
-      liveUrl: "#",
-      badge: { icon: "fas fa-globe", text: "Live" },
-      gradientFrom: "from-primary",
-      gradientTo: "to-secondary"
+      title: "PlayedIt",
+      description: "A MERN stack game discovery platform that helps users find their next favorite game. Built with personalized recommendations powered by machine learning, advanced search with 50,000+ games, and a full suite of user and developer features for publishing and managing game listings.",
+      image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
+      tags: ["MERN Stack", "REST API", "MongoDB", "React", "Machine Learning"],
+      githubUrl: "https://github.com/KaitMArms/POOSD-Large-Project",
+      liveUrl: undefined,
+      badge: { icon: "fas fa-database", text: "Full Stack" },
+      gradientFrom: "from-green-900",
+      gradientTo: "to-blue-900"
     },
     {
       title: "Burnt Out (UE5 Horror Game)",

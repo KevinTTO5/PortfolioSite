@@ -35,20 +35,20 @@ export default function HeroSection() {
           Kevin Rodriguez
         </h1>
         
-        <div className="text-2xl md:text-3xl text-muted-foreground mb-8 typing-animation max-w-2xl mx-auto">Software Engineer • Graphics Enthusiast</div>
+        <div className="text-xl md:text-2xl text-muted-foreground mb-8 typing-animation mx-auto px-4" style={{ maxWidth: '800px' }}>Software Engineer • Backend Specialist • Full Stack Developer</div>
         
         <div className="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up" data-aos-delay="200">
           <span className="px-4 py-2 bg-card border border-border rounded-full text-sm font-medium">
             <i className="fab fa-react mr-2"></i>React Developer
           </span>
           <span className="px-4 py-2 bg-card border border-border rounded-full text-sm font-medium">
-            <i className="fas fa-gamepad mr-2"></i>Game Development
+            <i className="fas fa-server mr-2"></i>Backend Engineer
           </span>
           <span className="px-4 py-2 bg-card border border-border rounded-full text-sm font-medium">
             <i className="fab fa-aws mr-2"></i>Cloud Architecture
           </span>
           <span className="px-4 py-2 bg-card border border-border rounded-full text-sm font-medium">
-            <i className="fab fa-github mr-2"></i>Open Source
+            <i className="fas fa-database mr-2"></i>Database Design
           </span>
         </div>
 
