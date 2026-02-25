@@ -1,4 +1,4 @@
-import crisisGlobe from '../attached_assets/globe.png';
+import crisisGlobe from '@assets/globe.PNG';
 
 export default function ProjectsSection() {
   const getTagIcon = (tag: string) => {
