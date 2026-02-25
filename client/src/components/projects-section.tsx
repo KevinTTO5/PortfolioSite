@@ -1,3 +1,5 @@
+import crisisGlobe from '../attached_assets/globe.png';
+
 export default function ProjectsSection() {
   const getTagIcon = (tag: string) => {
     const iconMap: { [key: string]: string } = {
@@ -58,12 +60,12 @@ export default function ProjectsSection() {
       gradientTo: "to-purple-900"
     },
     {
-      title: "Apple Calendar Populating Script",
-      description: "My workplace never provided direct implementations of placing my shifts from their website to my apple calendar, so I developed a python script that would login into the site for me, scrape the contents of the schedule and populate my desired apple calendar.",
-      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      tags: ["Javascript", "AppleCal", "Optimization", "Selenium"],
-      githubUrl: "https://github.com/KevinTTO5/KevinTTO5.github.io/blob/main/schedule_to_calendar.py",
-      badge: { icon: "fas fa-network-wired", text: "Automation" },
+      title: "Crisis Averted - Hacklytics 2026",
+      description: "Crisis Averted is a real-time, voice-driven humanitarian intelligence platform designed to transform fragmented global aid data into clear, actionable insights for crisis decision-makers. This system delivers sub-second intelligence briefings and highlights funding-to-need mismatches to support more effective humanitarian resource allocation.",
+      image: crisisGlobe,
+      tags: ["FastAPI", "Databricks", "ActianDB", "Vultr", "Next.js", "ElevenLabs"],
+      githubUrl: "https://github.com/GodlyDonuts/Hacklytics-GoldenByte",
+      badge: { icon: "fas fa-hands-helping", text: "Humanitarian" },
       gradientFrom: "from-green-900",
       gradientTo: "to-teal-900"
     }
