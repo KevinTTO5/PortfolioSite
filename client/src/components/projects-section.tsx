@@ -63,7 +63,7 @@ export default function ProjectsSection() {
       title: "Crisis Averted - Hacklytics 2026",
       description: "Crisis Averted is a real-time, voice-driven humanitarian intelligence platform designed to transform fragmented global aid data into clear, actionable insights for crisis decision-makers. This system delivers sub-second intelligence briefings and highlights funding-to-need mismatches to support more effective humanitarian resource allocation.",
       image: crisisGlobe,
-      tags: ["FastAPI", "Databricks", "ActianDB", "Vultr", "Next.js", "ElevenLabs"],
+      tags: ["FastAPI", "Databricks", "ActianDB", "Vultr", "Next.js", "ElevenLabs, Three.js"],
       githubUrl: "https://github.com/GodlyDonuts/Hacklytics-GoldenByte",
       badge: { icon: "fas fa-hands-helping", text: "Humanitarian" },
       gradientFrom: "from-green-900",
