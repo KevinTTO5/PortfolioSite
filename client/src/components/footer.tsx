@@ -1,3 +1,10 @@
+type FooterSocialLink = {
+  icon: string;
+  href: string;
+  download?: string;
+  ariaLabel: string;
+};
+
 export default function Footer() {
   const footerLinks = {
     quickLinks: [
@@ -13,10 +20,19 @@ export default function Footer() {
       "Game Development"
     ],
     socialLinks: [
-      { icon: "fab fa-github", href: "https://github.com/KevinTTO5" },
-      { icon: "fab fa-linkedin", href: "https://www.linkedin.com/in/kevin-rodriguez-098943191/" },
-      { icon: "fas fa-envelope", href: "mailto:kevinarodriguez255@gmail.com" }
-    ]
+      { icon: "fab fa-github", href: "https://github.com/KevinTTO5", ariaLabel: "GitHub profile" },
+      {
+        icon: "fab fa-linkedin",
+        href: "https://www.linkedin.com/in/kevin-rodriguez-098943191/",
+        ariaLabel: "LinkedIn profile",
+      },
+      {
+        icon: "fas fa-file-pdf",
+        href: "/resume.pdf",
+        download: "Kevin-Rodriguez-Resume.pdf",
+        ariaLabel: "Download resume PDF",
+      },
+    ] satisfies FooterSocialLink[],
   };
 
   const handleLinkClick = (href: string) => (e: React.MouseEvent) => {
@@ -38,13 +54,15 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               {footerLinks.socialLinks.map((social, index) => (
-                <a 
+                <a
                   key={index}
-                  href={social.href} 
-                  target={social.href.startsWith('mailto:') ? undefined : "_blank"}
-                  rel={social.href.startsWith('mailto:') ? undefined : "noopener noreferrer"}
+                  href={social.href}
+                  {...(social.download ? { download: social.download } : {})}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-primary transition-colors"
                   data-testid={`footer-social-${index}`}
+                  aria-label={social.ariaLabel}
                 >
                   <i className={`${social.icon} text-xl`}></i>
                 </a>

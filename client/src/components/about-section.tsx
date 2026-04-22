@@ -52,8 +52,8 @@ export default function AboutSection() {
             </div>
             <h3 className="text-2xl font-bold mb-4 text-foreground">Let's Connect</h3>
             <p className="text-muted-foreground leading-relaxed">
-              Ready to collaborate or discuss opportunities? The contact section provides multiple ways to reach me, 
-              including a direct communication interface for seamless networking and project discussions.
+              Ready to collaborate or discuss opportunities? The contact section links to my resume and professional
+              profiles so we can connect where you prefer.
             </p>
           </div>
         </div>
