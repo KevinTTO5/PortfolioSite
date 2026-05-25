@@ -58,7 +58,7 @@ export default function AboutSection() {
           </div>
         </div>
 
-        {/* Skills Section */}
+        {/*Skills Section*/}
         <div className="mt-20" data-aos="fade-up">
           <h3 className="text-3xl font-bold text-center mb-12">Technical Expertise</h3>
           <div className="flex flex-wrap justify-center gap-8 max-w-6xl mx-auto">
